@@ -1,0 +1,284 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Sora", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-void: #050b16;
+  --color-deep: #0a1730;
+  --color-deep-2: #0e1f42;
+  --color-brand: #2e6bff;
+  --color-brand-light: #6fa8ff;
+  --color-glow: #5cc8ff;
+  --color-ink: #eaf1ff;
+  --color-muted: #93a4c3;
+
+  --color-light-bg: #eef3fb;
+  --color-light-surface: #ffffff;
+  --color-light-ink: #0a1730;
+  --color-light-muted: #4d5f82;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.light {
+  color-scheme: light;
+  --color-ink: #0a1730;
+  --color-muted: #45557a;
+  --color-brand-light: #3266e0;
+  --color-glow: #2a8fce;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-void);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.light body {
+  background: var(--color-light-bg);
+  color: var(--color-light-ink);
+}
+
+::selection {
+  background: var(--color-brand);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-brand) 45%, transparent);
+  border-radius: 999px;
+}
+
+/* ---------- Aurora animated background ---------- */
+.aurora-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-void);
+  transition: background-color 0.4s ease;
+}
+
+html.light .aurora-layer {
+  background: var(--color-light-bg);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+html.light .aurora-blob {
+  opacity: 0.6;
+  filter: blur(70px);
+}
+
+/* Moving gradient wash — this is the "ngewave" flowing gradient across the whole page */
+.aurora-gradient-wash {
+  position: absolute;
+  inset: -25%;
+  background: linear-gradient(
+    120deg,
+    var(--color-void) 0%,
+    var(--color-deep) 16%,
+    var(--color-deep-2) 32%,
+    var(--color-brand) 50%,
+    var(--color-glow) 66%,
+    var(--color-deep-2) 82%,
+    var(--color-void) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientWave 16s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+html.light .aurora-gradient-wash {
+  background: linear-gradient(
+    120deg,
+    var(--color-light-bg) 0%,
+    #cfe0ff 22%,
+    #a9d4ff 42%,
+    var(--color-glow) 60%,
+    #a9d4ff 78%,
+    var(--color-light-bg) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientWave 16s ease-in-out infinite;
+  opacity: 0.55;
+}
+
+@keyframes gradientWave {
+  0% { background-position: 0% 30%; }
+  25% { background-position: 60% 70%; }
+  50% { background-position: 100% 40%; }
+  75% { background-position: 40% 80%; }
+  100% { background-position: 0% 30%; }
+}
+
+.aurora-blob.b1 {
+  width: 55vw; height: 55vw; left: -15vw; top: -10vw;
+  background: radial-gradient(circle, var(--color-brand) 0%, transparent 70%);
+  animation: driftA 18s ease-in-out infinite;
+}
+.aurora-blob.b2 {
+  width: 45vw; height: 45vw; right: -10vw; top: 5vw;
+  background: radial-gradient(circle, var(--color-glow) 0%, transparent 70%);
+  animation: driftB 21s ease-in-out infinite;
+}
+.aurora-blob.b3 {
+  width: 50vw; height: 50vw; left: 20vw; bottom: -20vw;
+  background: radial-gradient(circle, var(--color-brand-light) 0%, transparent 70%);
+  animation: driftC 24s ease-in-out infinite;
+}
+.aurora-blob.b4 {
+  width: 35vw; height: 35vw; right: 10vw; bottom: 0vw;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  opacity: 0.28;
+  animation: driftA 27s ease-in-out infinite reverse;
+}
+
+.aurora-streaks {
+  position: absolute;
+  inset: -2%;
+  background-image: repeating-linear-gradient(
+    100deg,
+    transparent 0px,
+    transparent 60px,
+    color-mix(in srgb, var(--color-brand-light) 6%, transparent) 61px,
+    transparent 120px
+  );
+  animation: streakMove 28s linear infinite;
+  opacity: 0.5;
+}
+
+html.light .aurora-streaks {
+  background-image: repeating-linear-gradient(
+    100deg,
+    transparent 0px,
+    transparent 60px,
+    color-mix(in srgb, var(--color-brand) 22%, transparent) 61px,
+    transparent 120px
+  );
+  opacity: 0.55;
+}
+
+@keyframes driftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6vw, 8vw) scale(1.1); }
+  66% { transform: translate(-4vw, 4vw) scale(0.95); }
+}
+@keyframes driftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-8vw, 10vw) scale(1.15); }
+}
+@keyframes driftC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, -6vw) scale(1.08); }
+}
+@keyframes streakMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-236px, -42px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob, .aurora-streaks, .aurora-gradient-wash, .wave-track, html {
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Glass utility ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 32px rgba(0, 10, 40, 0.35);
+}
+
+html.light .glass {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(10, 23, 48, 0.08);
+  box-shadow: 0 8px 32px rgba(20, 40, 90, 0.12);
+}
+
+.glass-hover {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--color-brand-light) 55%, transparent);
+  box-shadow: 0 16px 48px rgba(46, 107, 255, 0.25), 0 0 0 1px rgba(92, 200, 255, 0.15) inset;
+}
+
+/* ---------- Flip card (certificates) ---------- */
+.flip-card {
+  perspective: 1400px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ---------- Misc ---------- */
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-brand-light) 55%, var(--color-glow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-btn {
+  box-shadow: 0 0 0 0 rgba(46, 107, 255, 0.5);
+  transition: box-shadow 0.35s ease, transform 0.25s ease;
+}
+.glow-btn:hover {
+  box-shadow: 0 0 32px 4px rgba(46, 107, 255, 0.55);
+  transform: translateY(-2px);
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.float { animation: floatY 6s ease-in-out infinite; }
+.float-slow { animation: floatY 9s ease-in-out infinite; }
+.float-slower { animation: floatY 11s ease-in-out infinite; }
+
+@keyframes blinkCursor {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
