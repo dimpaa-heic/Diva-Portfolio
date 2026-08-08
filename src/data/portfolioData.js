@@ -8,7 +8,7 @@ export const profile = {
     "I like turning messy data and rough ideas into things that actually work - dashboards that make sense, interfaces that don't break, designs that don't feel like an afterthought.",
   location: 'Cikarang, West Java, Indonesia',
   email: 'divaclarm20@gmail.com', // TODO: replace with your real email
-  resumeUrl: '/resume.pdf', // TODO: drop your CV PDF into /public and update this path
+  resumeUrl: 'public/resume.pdf', // TODO: drop your CV PDF into /public and update this path
   photo: '/photos/dimpa_ungu2.jpeg', // TODO: e.g. '/photo.jpg' — put the file in /public and set the path here
   socials: {
     github: 'https://github.com/dimpaa-heic',
