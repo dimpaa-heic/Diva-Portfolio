@@ -49,6 +49,7 @@ export const skills = {
   ],
   design: [
     { name: 'Figma', level: 80 },
+    { name: 'Canva', level: 80 },
     { name: 'Design Systems', level: 70 },
     { name: 'UI Prototyping', level: 70 },
   ],
